@@ -1,0 +1,35 @@
+{
+  "name": "react-i13n-ga",
+  "description": "google analytics plugin for react i13n",
+  "version": "0.1.0",
+  "browser": "index.client.js",
+  "main": "index.server.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kaesonho/react-i13n-ga.git"
+  },
+  "scripts": {
+    "cover": "grunt cover",
+    "lint": "jshint",
+    "test": "grunt unit"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "react",
+    "component",
+    "reactors"
+  ],
+  "precommit": [
+    "lint",
+    "test"
+  ],
+  "yhint": {
+    "excludes": [
+      "/dist/",
+      "/tests/"
+    ]
+  },
+  "jshintConfig": {
+    "node": true
+  }
+}
