@@ -9,11 +9,16 @@
     "url": "git@github.com:kaesonho/react-i13n-ga.git"
   },
   "scripts": {
-    "cover": "grunt cover",
+    "cover": "istanbul cover --dir ${COVERAGE_DIR:-artifacts} -- _mocha tests/unit --recursive --reporter tap",
     "lint": "jshint",
-    "test": "grunt unit"
+    "test": "mocha tests/unit --recursive --reporter spec"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "istanbul": "^0.3.0",
+    "jshint": "^2.5.1",
+    "mocha": "^2.0"
+  },
   "keywords": [
     "react",
     "component",

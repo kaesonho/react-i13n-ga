@@ -6,8 +6,9 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
         name: 'ga',
         eventHandlers: {
             pageview: function (payload, callback) {
-            },
-            click: function (payload, callback) {
+                // we are able to fire server side beacon,
+                // and we can execute pageview event on componentWillMount to make it happen on server side
+                // do nothing for now
             }
         }
     };
