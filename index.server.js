@@ -1,4 +1,5 @@
 var ReactI13nGoogleAnalytics = function (trackingId) {
+
 };
 
 ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
