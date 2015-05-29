@@ -35,6 +35,13 @@ ReactI13n.getInstance().execute('pageview', {
     * `label` - Useful for categorizing events, default set as the value of [i13nNode.getText](https://github.com/yahoo/react-i13n/blob/master/docs/api/I13nNode.md#gettexttarget).
     * `value` - Values must be non-negative. Useful to pass counts (e.g. 4 times).
 
+```js
+var I13nAnchor = require('react-i13n').I13nAnchor;
+
+// in template, will fire event beacon as ga('send', 'event', 'foo', 'click', 'Foo');
+<I13nAnchor i13nModel={{category: 'foo', action: 'click'}}>Foo</I13nAnchor>
+```
+
 ## Install
 
 ```
