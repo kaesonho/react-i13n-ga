@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "chai": "^2.1.2",
+    "coveralls": "^2.11.1",
     "istanbul": "^0.3.0",
     "jsdom": "^3.0.0",
     "jshint": "^2.5.1",

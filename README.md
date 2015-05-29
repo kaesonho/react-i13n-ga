@@ -2,6 +2,8 @@
 
 Google Analytics plugin for [react-i13n](https://github.com/yahoo/react-i13n)
 
+[![npm version](https://badge.fury.io/js/react-i13n-ga.svg)](http://badge.fury.io/js/react-i13n-ga) [![Build Status](https://travis-ci.org/yahoo/react-i13n.svg?branch=triggerBuild)](https://travis-ci.org/yahoo/react-i13n)
+
 ## Features
 * Integrate [react-i13n](https://github.com/yahoo/react-i13n) to provide instrumentation approach using [Google Analytics](http://www.google.com/analytics/).
 * [react-i13n](https://github.com/yahoo/react-i13n) handles the beaconing management and handle the click events, this plugin provides [event handlers](https://github.com/yahoo/react-i13n/blob/master/docs/guides/createPlugins.md) to handle these events and firing `ga beacons`.
