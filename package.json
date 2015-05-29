@@ -36,5 +36,19 @@
   },
   "jshintConfig": {
     "node": true
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/kaesonho/react-i13n-ga/issues"
+  },
+  "homepage": "https://github.com/kaesonho/react-i13n-ga",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "chai": "^2.3.0",
+    "istanbul": "^0.3.14",
+    "jshint": "^2.7.0"
+  },
+  "author": "Kaeson Ho <kaesonho@yahoo-inc.com>",
+  "license": "BSD"
 }
