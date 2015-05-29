@@ -1,17 +1,17 @@
 # react-i13n-ga
 
-Google Analytics plugin for react-i13n
+Google Analytics plugin for [react-i13n](https://github.com/yahoo/react-i13n)
 
 ## Features
  * Integrate [react-i13n](https://github.com/yahoo/react-i13n) to provide instrumentation approach using [Google Analytics](http://www.google.com/analytics/).
- * Provide [event handlers](https://github.com/yahoo/react-i13n/blob/master/docs/guides/createPlugins.md) to handle pageview and click events.
+ * [react-i13n](https://github.com/yahoo/react-i13n) handles the beaconing management and handle the click events, this plugin provides [event handlers](https://github.com/yahoo/react-i13n/blob/master/docs/guides/createPlugins.md) to handle these events and firing `ga beacons`.
 
 ## Usage
 ```js
 var reactI13nGoogleAnalytics = require('react-i13n-ga');
 var setupI13n = require('react-i13n').setupI13n;
-var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics([your tracking id]); 
-Application = setupI13n(Application, {}, [reactI13nGoogleAnalytics.getPlugin()]);
+var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics([your tracking id]); // create reactI13nGoogleAnalytics instance with your tracking id
+Application = setupI13n(Application, {}, [reactI13nGoogleAnalytics.getPlugin()]); // setup react-i13n with the plugin
 ```
 
 ## Pageview Event

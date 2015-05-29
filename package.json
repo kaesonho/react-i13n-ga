@@ -1,7 +1,7 @@
 {
   "name": "react-i13n-ga",
   "description": "google analytics plugin for react i13n",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "browser": "index.client.js",
   "main": "index.server.js",
   "repository": {
@@ -21,8 +21,11 @@
   },
   "keywords": [
     "react",
-    "component",
-    "reactors"
+    "i13n",
+    "instrumentation",
+    "ga",
+    "google-analytics",
+    "google"
   ],
   "precommit": [
     "lint",
