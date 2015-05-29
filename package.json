@@ -16,8 +16,10 @@
   "devDependencies": {
     "chai": "^2.1.2",
     "istanbul": "^0.3.0",
+    "jsdom": "^3.0.0",
     "jshint": "^2.5.1",
-    "mocha": "^2.0"
+    "mocha": "^2.0",
+    "react-i13n": "^0.1.8"
   },
   "keywords": [
     "react",
