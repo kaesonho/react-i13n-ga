@@ -15,11 +15,14 @@ npm install react-i13n-ga
 ```
 
 ## Usage
+You will need to create a instance of `react-i13n-ga` first, then use `getPlugin` to get the plugin object, then pass it into [setupI13n](https://github.com/yahoo/react-i13n/blob/master/docs/api/setupI13n.md) provided by [react-i13n](https://github.com/yahoo/react-i13n), then it will help to decorate your `Top Level Component` with i13n `react-i13n-ga` plugin functionalities.
+
 ```js
 var reactI13nGoogleAnalytics = require('react-i13n-ga');
 var setupI13n = require('react-i13n').setupI13n;
 var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics([your tracking id]); // create reactI13nGoogleAnalytics instance with your tracking id
-Application = setupI13n(Application, {}, [reactI13nGoogleAnalytics.getPlugin()]); // setup react-i13n with the plugin
+// Suppose that Application is your top level component, use setupI13n with this plugin
+Application = setupI13n(Application, {}, [reactI13nGoogleAnalytics.getPlugin()]);
 ```
 
 ## Pageview Event

@@ -50,11 +50,12 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {
-    "chai": "^2.3.0",
-    "istanbul": "^0.3.14",
-    "jshint": "^2.7.0"
-  },
-  "author": "Kaeson Ho <kaesonho@yahoo-inc.com>",
-  "license": "BSD"
+  "dependencies": {},
+  "author": "Kaeson Ho <geniepotato@gmail.com>",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ]
 }
