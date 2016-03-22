@@ -10,3 +10,4 @@ dist/
 tests/functional/bundle.js
 tests/functional/i13n-functional.js
 tests/functional/css/
+*npm-debug.log

@@ -18,16 +18,43 @@ describe('ga plugin client', function () {
         });
     });
 
-    it('ga will be created once we create a plugin instance', function (done) {
+    it('ga will be created once we create a plugin instance with default tracker ', function (done) {
         var mockTrackingId = 'foo';
-        global.ga = function (actionName, trackingId) {
+        global.ga = function (actionName, config){
             expect(actionName).to.eql('create');
-            expect(trackingId).to.eql(mockTrackingId);
+            expect({
+                trackingId: mockTrackingId,
+                cookieDomain: 'auto',
+                name: undefined,
+                userId: undefined
+            }).to.eql(config);
             done();
         };
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics(mockTrackingId);
     });
-    
+
+    it('ga will be created once we create a plugin instance with customized tracker', function (done) {
+
+        var mockTrackingId = 'foo';
+        var tracker = 'myTracker';
+        var mockConfig = {
+            trackingId: mockTrackingId,
+            cookieDomain: 'auto',
+            name: tracker,
+            userId: undefined
+        };
+        global.ga = function (actionName, config){
+            expect(actionName).to.eql('create');
+            expect(config).to.eql(mockConfig);
+            done();
+        };
+        var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics({
+            trackingId: mockTrackingId,
+            name: tracker
+        });
+    });
+
+
     it('ga will fire pageview beacon for pageview handler', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
         global.ga = function (actionSend, actionName, options) {
@@ -44,13 +71,14 @@ describe('ga plugin client', function () {
             done();
         });
     });
-    
+
     it('ga will fire event beacon for click handler', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
-        var i13nNode = new I13nNode(null, {category: 'foo', action: 'bar', label: 'baz', value: 1});
+        var tracker = 'myTracker';
+        var i13nNode = new I13nNode(null, {tracker: tracker, category: 'foo', action: 'bar', label: 'baz', value: 1});
         global.ga = function (actionSend, actionName, category, action, label, value, options) {
-            expect(actionSend).to.eql('send');
-            expect(actionName).to.eql('pageview');
+            expect(actionSend).to.eql(tracker + '.send');
+            expect(actionName).to.eql('event');
             expect(category).to.eql('foo');
             expect(action).to.eql('bar');
             expect(label).to.eql('baz');
@@ -58,8 +86,52 @@ describe('ga plugin client', function () {
             options.hitCallback && options.hitCallback();
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.click({
+            i13nNode: i13nNode
         }, function beaconCallback () {
             done();
         });
     });
-}); 
+
+    it('ga will fire click for command handler with default tracker', function (done) {
+        var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
+        global.ga = function (actionSend, actionName, category, action) {
+            expect(actionSend).to.eql('send');
+            expect(actionName).to.eql('event');
+            expect(category).to.eql('Outbound Link');
+            expect(action).to.eql('click');
+        };
+        reactI13nGoogleAnalytics.getPlugin().eventHandlers.command({
+            commandName: 'send',
+            arguments: [
+                'event',
+                'Outbound Link',
+                'click'
+            ]
+        }, function beaconCallback () {
+            done();
+        });
+    });
+
+    it('ga will fire click for command handler with customized tracker', function (done) {
+        var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
+        var tracker = 'myTracker';
+        global.ga = function (actionSend, actionName, category, action) {
+            expect(actionSend).to.eql(tracker + '.send');
+            expect(actionName).to.eql('event');
+            expect(category).to.eql('Outbound Link');
+            expect(action).to.eql('click');
+        };
+        reactI13nGoogleAnalytics.getPlugin().eventHandlers.command({
+            tracker: tracker,
+            commandName: 'send',
+            arguments: [
+                'event',
+                'Outbound Link',
+                'click'
+            ]
+        }, function beaconCallback () {
+            done();
+        });
+    });
+
+});
