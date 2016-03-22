@@ -50,7 +50,9 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "debug": "~2.2.0"
+  },
   "author": "Kaeson Ho <geniepotato@gmail.com>",
   "licenses": [
     {

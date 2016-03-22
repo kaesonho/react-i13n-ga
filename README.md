@@ -20,13 +20,22 @@ You will need to create a instance of `react-i13n-ga` first, then use `getPlugin
 ```js
 var reactI13nGoogleAnalytics = require('react-i13n-ga');
 var setupI13n = require('react-i13n').setupI13n;
+
 var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics([your tracking id]); // create reactI13nGoogleAnalytics instance with your tracking id
+// or
+var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics({
+    trackingId: [mandatory, your tracking id],
+    cookieDomain: [optional, cookie domain name, by default "auto"],
+    name: [optional, customized tracker name],
+    userId: [optional]
+}); // create reactI13nGoogleAnalytics instance with config object
+
 // Suppose that Application is your top level component, use setupI13n with this plugin
 Application = setupI13n(Application, {}, [reactI13nGoogleAnalytics.getPlugin()]);
 ```
 
 ## Pageview Event
-* Integrate [page tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages), 
+* Integrate [page tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages),
 
 ```js
 var ReactI13n = require('react-i13n').ReactI13n;
@@ -35,6 +44,12 @@ var ReactI13n = require('react-i13n').ReactI13n;
 ReactI13n.getInstance().execute('pageview', {
     page: [page url], // get the page url, or keep empty to let google analytics handle it
     title: [page title] // get the page title, or keep empty to let google analytics handle it
+});
+
+// in component (React 0.14+)
+this.props.i13n.executeEvent('pageview', {
+   page: [page url],
+   title: [page title]
 });
 ```
 
@@ -98,7 +113,7 @@ var Foo = React.createClass({
 </Foo>
 ```
 
-For better instrumentation integration, you can leverage the [inherit architecture](https://github.com/yahoo/react-i13n/blob/master/docs/guides/integrateWithComponents.md), e.g., create a parent and define the `category` so that all the links inside will apply it.
+For better instrumentation integration, you can leverage the [inherit architecture](https://github.com/yahoo/react-i13n/blob/master/docs/guides/integrateWithComponents.md), e.g., create a parent and define the `category` with default tracker, or specify `tracker`, so that all the links inside will apply it.
 
 ```js
 
@@ -123,5 +138,51 @@ Foo = createI13nNode(Foo, {
 });
 
 // in template
-<Foo i13nModel={{category: 'foo'}} />
+<Foo i13nModel={{tracker: 'myTracker', category: 'foo'}} />
+```
+
+## ga command queue
+* [ga command queue](https://developers.google.com/analytics/devguides/collection/analyticsjs/creating-trackers#running_commands_for_a_specific_trackers)
+
+You can also execute ga command queue by calling executeEvent.  It's also possible to execute  command on specific *tracker* . The following are sample usage:
+```js
+// send by default tracker
+this.props.i13n.executeEvent('command', {
+    command: 'send',
+    arguments: [
+        hitType,
+        [...fields],
+        [fieldsObject])
+    ]
+});
+
+// send by specific tracker
+this.props.i13n.executeEvent('command', {
+    tracker: 'myTracker', // tracker name: myTracker
+    command: 'send',
+    arguments: [
+       ...
+    ]
+});
+
+// require on default tracker
+this.props.i13n.executeEvent('command', {
+    command: 'require',
+    arguments: [
+        pluginName,
+        [pluginOptions]
+    ]
+});
+
+// require plugin for specific tracker
+this.props.i13n.executeEvent('command', {
+    tracker: 'myTracker',
+    command: 'require',
+    arguments: [
+       ...
+    ]
+});
+
+// more and more, such as ga('[myTracker.]set', ...)
+// ...
 ```
