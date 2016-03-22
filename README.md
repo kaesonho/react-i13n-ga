@@ -151,7 +151,7 @@ You can also execute ga command queue by calling executeEvent.  It's also possib
 ```js
 // send by default tracker
 this.props.i13n.executeEvent('command', {
-    command: 'send',
+    commandName: 'send',
     arguments: [
         hitType,
         [...fields],
@@ -162,7 +162,7 @@ this.props.i13n.executeEvent('command', {
 // send by specific tracker
 this.props.i13n.executeEvent('command', {
     tracker: 'myTracker', // tracker name: myTracker
-    command: 'send',
+    commandName: 'send',
     arguments: [
        ...
     ]
@@ -170,7 +170,7 @@ this.props.i13n.executeEvent('command', {
 
 // require on default tracker
 this.props.i13n.executeEvent('command', {
-    command: 'require',
+    commandName: 'require',
     arguments: [
         pluginName,
         [pluginOptions]
@@ -180,7 +180,7 @@ this.props.i13n.executeEvent('command', {
 // require plugin for specific tracker
 this.props.i13n.executeEvent('command', {
     tracker: 'myTracker',
-    command: 'require',
+    commandName: 'require',
     arguments: [
        ...
     ]
