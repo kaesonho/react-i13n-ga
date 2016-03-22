@@ -1,7 +1,7 @@
 {
   "name": "react-i13n-ga",
   "description": "google analytics plugin for react i13n",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "browser": "index.client.js",
   "main": "index.server.js",
   "repository": {
