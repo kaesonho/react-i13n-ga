@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var jsdom = require('jsdom');
-var I13nNode = require('react-i13n').I13nNode;
+var I13nNode = require('react-i13n/dist/libs/I13nNode');
 var gaPlugin;
 'use strict';
 
@@ -55,7 +55,7 @@ describe('ga plugin client', function () {
     });
 
 
-    it('ga will fire pageview beacon for pageview handler', function (done) {
+    it('ga will fire pageview beacon for pageview handler with default tracker', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
         global.ga = function (actionSend, actionName, options) {
             expect(actionSend).to.eql('send');
@@ -71,6 +71,26 @@ describe('ga plugin client', function () {
             done();
         });
     });
+
+    it('ga will fire pageview beacon for pageview handler with customized tracker', function (done) {
+        var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
+        var tracker = 'myTracker';
+        global.ga = function (actionSend, actionName, options) {
+            expect(actionSend).to.eql(tracker + '.send');
+            expect(actionName).to.eql('pageview');
+            expect(options.page).to.eql('/foo');
+            expect(options.title).to.eql('Foo');
+            options.hitCallback && options.hitCallback();
+        };
+        reactI13nGoogleAnalytics.getPlugin().eventHandlers.pageview({
+            tracker: tracker,
+            url: '/foo',
+            title: 'Foo'
+        }, function beaconCallback () {
+            done();
+        });
+    });
+
 
     it('ga will fire event beacon for click handler', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');

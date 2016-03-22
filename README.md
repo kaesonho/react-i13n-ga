@@ -42,20 +42,23 @@ var ReactI13n = require('react-i13n').ReactI13n;
 
 // fire pageview at whatever you want, typically we do it at componentDidMount
 ReactI13n.getInstance().execute('pageview', {
+    tracker: [tracker name], // optional
     page: [page url], // get the page url, or keep empty to let google analytics handle it
     title: [page title] // get the page title, or keep empty to let google analytics handle it
 });
 
 // in component (React 0.14+)
 this.props.i13n.executeEvent('pageview', {
-   page: [page url],
-   title: [page title]
+    tracker: [tracker name], // optional
+    page: [page url],
+    title: [page title]
 });
 ```
 
 ## Click Event
 * Integrate [event tracking](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
 * Define the keys in `i13nModel`:
+   * `tracker` - tracker name, default is undefined.
    * `category` - Typically the object that was interacted with, default set as `all`.
    * `action` - The type of interaction, default set as `click`.
    * `label` - Useful for categorizing events, default set as the value of [i13nNode.getText](https://github.com/yahoo/react-i13n/blob/master/docs/api/I13nNode.md#gettexttarget).
@@ -142,7 +145,7 @@ Foo = createI13nNode(Foo, {
 ```
 
 ## ga command queue
-* [ga command queue](https://developers.google.com/analytics/devguides/collection/analyticsjs/creating-trackers#running_commands_for_a_specific_trackers)
+* [ga command queue](https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference)
 
 You can also execute ga command queue by calling executeEvent.  It's also possible to execute  command on specific *tracker* . The following are sample usage:
 ```js
