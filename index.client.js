@@ -45,15 +45,23 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              * pageview handler
              * @method pageview
              * @param {Object} payload payload object
+             * @param {Object} payload.tracker page title
              * @param {Object} payload.title page title
              * @param {Object} payload.url current url
              * @param {Function} calback callback function
              */
             pageview: function (payload, callback) {
-                ga('send', 'pageview', {
-                    page: payload.url,
-                    title: payload.title,
-                    hitCallback: callback
+                this.command({
+                    tracker: payload.tracker || '',
+                    commandName: 'send',
+                    arguments: [
+                        'pageview',
+                        {
+                            page: payload.url,
+                            title: payload.title,
+                            hitCallback: callback
+                        }
+                    ]
                 });
             },
 

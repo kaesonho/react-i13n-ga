@@ -9,9 +9,9 @@
     "url": "git@github.com:kaesonho/react-i13n-ga.git"
   },
   "scripts": {
-    "cover": "istanbul cover --dir ${COVERAGE_DIR:-artifacts} -- _mocha tests/unit --recursive --reporter tap",
+    "cover": "istanbul cover --dir ${COVERAGE_DIR:-artifacts} -- _mocha tests/unit --require ./tests/setup --recursive --reporter tap",
     "lint": "jshint",
-    "test": "mocha tests/unit --recursive --reporter spec"
+    "test": "mocha tests/unit --require ./tests/setup --recursive --reporter spec"
   },
   "devDependencies": {
     "chai": "^2.1.2",
@@ -20,7 +20,7 @@
     "jsdom": "^3.0.0",
     "jshint": "^2.5.1",
     "mocha": "^2.0",
-    "react-i13n": "^0.1.8"
+    "object-assign": "^4.0.1"
   },
   "keywords": [
     "react",
@@ -51,7 +51,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "debug": "~2.2.0"
+    "debug": "^2.2.0",
+    "react-i13n": "^2.0.4"
   },
   "author": "Kaeson Ho <geniepotato@gmail.com>",
   "licenses": [
