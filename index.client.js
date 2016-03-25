@@ -3,6 +3,10 @@ var DEFAULT_CATEGORY = 'all';
 var DEFAULT_ACTION = 'click';
 var DEFAULT_LABEL = '';
 
+var _command = function (payload, callback) {
+    ga.apply(this, [(payload.tracker ? (payload.tracker + '.') : '') + payload.commandName].concat(payload.arguments));
+    callback && callback();
+};
 /**
  * @class ReactI13nGoogleAnalytics
  * @param {String} tracking id
@@ -51,7 +55,7 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              * @param {Function} calback callback function
              */
             pageview: function (payload, callback) {
-                this.command({
+                _command.call(this, {
                     tracker: payload.tracker || '',
                     commandName: 'send',
                     arguments: [
@@ -88,7 +92,7 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
                     params.push({
                         hitCallback: callback
                     });
-                    this.command({
+                    _command.call(this, {
                         tracker: model.tracker || '',
                         commandName: 'send',
                         arguments: params
@@ -106,11 +110,7 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              * @param {Object} payload.commandName command
              * @param {Function} calback callback function
              */
-            command: function (payload, callback) {
-                ga.apply(this, [(payload.tracker ? (payload.tracker + '.') : '') + payload.commandName].concat(payload.arguments));
-                callback && callback();
-            }
-
+            command: _command.bind(this)
         }
     };
 }
