@@ -44,6 +44,7 @@ var ReactI13n = require('react-i13n').ReactI13n;
 ReactI13n.getInstance().execute('pageview', {
     tracker: [tracker name], // optional
     page: [page url], // get the page url, or keep empty to let google analytics handle it
+    location: [page location], // get the page location, or keep empty to let google analytics handle it
     title: [page title] // get the page title, or keep empty to let google analytics handle it
 });
 
@@ -51,6 +52,7 @@ ReactI13n.getInstance().execute('pageview', {
 this.props.i13n.executeEvent('pageview', {
     tracker: [tracker name], // optional
     page: [page url],
+    location: [page location],
     title: [page title]
 });
 ```
