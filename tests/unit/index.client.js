@@ -60,11 +60,13 @@ describe('ga plugin client', function () {
         global.ga = function (actionSend, actionName, options) {
             expect(actionSend).to.eql('send');
             expect(actionName).to.eql('pageview');
+            expect(options.location).to.eql('http://www.mywebsite.com/foo');
             expect(options.page).to.eql('/foo');
             expect(options.title).to.eql('Foo');
             options.hitCallback && options.hitCallback();
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.pageview({
+            location: 'http://www.mywebsite.com/foo',
             url: '/foo',
             title: 'Foo'
         }, function beaconCallback () {
@@ -78,12 +80,14 @@ describe('ga plugin client', function () {
         global.ga = function (actionSend, actionName, options) {
             expect(actionSend).to.eql(tracker + '.send');
             expect(actionName).to.eql('pageview');
+            expect(options.location).to.eql('http://www.mywebsite.com/foo');
             expect(options.page).to.eql('/foo');
             expect(options.title).to.eql('Foo');
             options.hitCallback && options.hitCallback();
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.pageview({
             tracker: tracker,
+            location: 'http://www.mywebsite.com/foo',
             url: '/foo',
             title: 'Foo'
         }, function beaconCallback () {

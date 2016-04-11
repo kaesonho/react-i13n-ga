@@ -51,6 +51,7 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              * @param {Object} payload payload object
              * @param {Object} payload.tracker page title
              * @param {Object} payload.title page title
+             * @param {Object} payload.location page location
              * @param {Object} payload.url current url
              * @param {Function} calback callback function
              */
@@ -61,6 +62,7 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
                     arguments: [
                         'pageview',
                         {
+                            location: payload.location,
                             page: payload.url,
                             title: payload.title,
                             hitCallback: callback
