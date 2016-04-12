@@ -99,15 +99,17 @@ describe('ga plugin client', function () {
     it('ga will fire event beacon for click handler', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
         var tracker = 'myTracker';
-        var i13nNode = new I13nNode(null, {tracker: tracker, category: 'foo', action: 'bar', label: 'baz', value: 1});
-        global.ga = function (actionSend, actionName, category, action, label, value, options) {
+        var i13nNode = new I13nNode(null, {tracker: tracker, category: 'foo', action: 'bar', label: 'baz', nonInteraction: true, value: 1});
+        global.ga = function (actionSend, actionName, fieldsObject) {
             expect(actionSend).to.eql(tracker + '.send');
             expect(actionName).to.eql('event');
-            expect(category).to.eql('foo');
-            expect(action).to.eql('bar');
-            expect(label).to.eql('baz');
-            expect(value).to.eql(1);
-            options.hitCallback && options.hitCallback();
+            expect(fieldsObject.eventCategory).to.eql('foo');
+            expect(fieldsObject.eventAction).to.eql('bar');
+            expect(fieldsObject.eventLabel).to.eql('baz');
+            expect(fieldsObject.eventValue).to.eql(1);
+            expect(fieldsObject.nonInteraction).to.eql(true);
+
+            fieldsObject.hitCallback && fieldsObject.hitCallback();
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.click({
             i13nNode: i13nNode
@@ -118,18 +120,20 @@ describe('ga plugin client', function () {
 
     it('ga will fire click for command handler with default tracker', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
-        global.ga = function (actionSend, actionName, category, action) {
+        global.ga = function (actionSend, actionName, fieldsObject) {
             expect(actionSend).to.eql('send');
             expect(actionName).to.eql('event');
-            expect(category).to.eql('Outbound Link');
-            expect(action).to.eql('click');
+            expect(fieldsObject.eventCategory).to.eql('Outbound Link');
+            expect(fieldsObject.eventAction).to.eql('click');
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.command({
             commandName: 'send',
             arguments: [
                 'event',
-                'Outbound Link',
-                'click'
+                {
+                    eventCategory: 'Outbound Link',
+                    eventAction: 'click'
+                }
             ]
         }, function beaconCallback () {
             done();
@@ -139,19 +143,21 @@ describe('ga plugin client', function () {
     it('ga will fire click for command handler with customized tracker', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
         var tracker = 'myTracker';
-        global.ga = function (actionSend, actionName, category, action) {
+        global.ga = function (actionSend, actionName, fieldsObject) {
             expect(actionSend).to.eql(tracker + '.send');
             expect(actionName).to.eql('event');
-            expect(category).to.eql('Outbound Link');
-            expect(action).to.eql('click');
+            expect(fieldsObject.eventCategory).to.eql('Outbound Link');
+            expect(fieldsObject.eventAction).to.eql('click');
         };
         reactI13nGoogleAnalytics.getPlugin().eventHandlers.command({
             tracker: tracker,
             commandName: 'send',
             arguments: [
                 'event',
-                'Outbound Link',
-                'click'
+                {
+                    eventCategory: 'Outbound Link',
+                    eventAction: 'click'
+                }
             ]
         }, function beaconCallback () {
             done();
