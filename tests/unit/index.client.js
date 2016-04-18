@@ -55,6 +55,27 @@ describe('ga plugin client', function () {
     });
 
 
+    it('ga will fire pageview beacon for pageview handler correctly for default values', function (done) {
+        var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
+        function beaconCallback () {
+            done();
+        }
+        global.ga = function (actionSend, actionName, options) {
+            expect(actionSend).to.eql('send');
+            expect(actionName).to.eql('pageview');
+            expect(options).to.eql(
+                {
+                    hitCallback: beaconCallback,
+                    location: '/foo'
+                }
+            );
+            options.hitCallback && options.hitCallback();
+        };
+        reactI13nGoogleAnalytics.getPlugin().eventHandlers.pageview({
+            location: '/foo'
+        }, beaconCallback);
+    });
+
     it('ga will fire pageview beacon for pageview handler with default tracker', function (done) {
         var reactI13nGoogleAnalytics = new ReactI13nGoogleAnalytics('foo');
         global.ga = function (actionSend, actionName, options) {

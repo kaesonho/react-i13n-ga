@@ -1,3 +1,4 @@
+'use strict';
 var debug = require('debug')('GAI13nPlugin');
 var DEFAULT_CATEGORY = 'all';
 var DEFAULT_ACTION = 'click';
@@ -56,17 +57,27 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              * @param {Function} calback callback function
              */
             pageview: function (payload, callback) {
+                var args = {},
+                    argsKeys = ['location', 'page', 'title'];
+
+                argsKeys.forEach(function consumer(prop) {
+                    if (payload.hasOwnProperty(prop)) {
+                        args[prop] = payload[prop];
+                    }
+                });
+
+                args.hitCallback = callback;
+                // `page` is alias to `url`
+                if (payload.hasOwnProperty('url')) {
+                    args.page = payload.url
+                }
+
                 _command.call(this, {
                     tracker: payload.tracker || '',
                     commandName: 'send',
                     arguments: [
                         'pageview',
-                        {
-                            location: payload.location,
-                            page: payload.url,
-                            title: payload.title,
-                            hitCallback: callback
-                        }
+                        args
                     ]
                 });
             },
