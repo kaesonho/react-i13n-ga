@@ -65,6 +65,7 @@ this.props.i13n.executeEvent('pageview', {
    * `action` - The type of interaction, default set as `click`.
    * `label` - Useful for categorizing events, default set as the value of [i13nNode.getText](https://github.com/yahoo/react-i13n/blob/master/docs/api/I13nNode.md#gettexttarget).
    * `value` - Values must be non-negative. Useful to pass counts (e.g. 4 times).
+   * `nonInteraction` - Boolean to indicate a [non-interaction event](https://support.google.com/analytics/answer/1033068#NonInteractionEvents).
 
 
 You can integrate I13nAnchor provided by react-i13n to track the normal links.

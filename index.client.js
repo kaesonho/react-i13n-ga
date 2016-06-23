@@ -3,6 +3,9 @@ var debug = require('debug')('GAI13nPlugin');
 var DEFAULT_CATEGORY = 'all';
 var DEFAULT_ACTION = 'click';
 var DEFAULT_LABEL = '';
+var DEFAULT_VALUE = 0;
+var DEFAULT_TRANSPORT = 'none';
+var DEFAULT_NON_INTERACTION = false;
 
 var _command = function (payload, callback) {
     ga.apply(this, [(payload.tracker ? (payload.tracker + '.') : '') + payload.commandName].concat(payload.arguments));
@@ -93,22 +96,26 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
              */
             click: function (payload, callback) {
                 var i13nNode = payload.i13nNode;
-                var params = ['event']
                 if (i13nNode) {
                     var model = i13nNode.getMergedModel();
-                    params.push(model.category || DEFAULT_CATEGORY);
-                    params.push(model.action || DEFAULT_ACTION);
-                    params.push(model.label || i13nNode.getText(payload.target) || DEFAULT_LABEL);
-                    if (model.value) {
-                        params.push(model.value);
-                    }
-                    params.push({
+                    var hitType = 'event';
+                    var params = {
+                        hitType: hitType,
+                        eventCategory: model.category || DEFAULT_CATEGORY,
+                        eventAction: model.action || DEFAULT_ACTION,
+                        eventLabel: model.label || i13nNode.getText(payload.target) || DEFAULT_LABEL,
+                        eventValue: model.value || DEFAULT_VALUE,
+                        transport: model.transport || DEFAULT_TRANSPORT,
+                        nonInteraction: model.nonInteraction || DEFAULT_NON_INTERACTION,
                         hitCallback: callback
-                    });
+                    };
                     _command.call(this, {
                         tracker: model.tracker || '',
                         commandName: 'send',
-                        arguments: params
+                        arguments: [
+                            hitType,
+                            params
+                        ]
                     });
                 } else {
                     callback && callback();
