@@ -122,6 +122,40 @@ ReactI13nGoogleAnalytics.prototype.getPlugin = function () {
                 }
             },
 
+            setUsername: function (properties) {
+                _command.call(this, {
+                    commandName: 'set',
+                    arguments: [
+                        'userId',
+                        properties.userId
+                    ]
+                });
+            },
+            setSuperProperties: function (properties) {
+                _command.call(this, {
+                    commandName: 'set',
+                    arguments: [
+                        properties
+                    ]
+                });
+            },
+            setUserProperties: function (properties) {
+                _command.call(this, {
+                    commandName: 'set',
+                    arguments: [
+                        properties
+                    ]
+                });
+            },
+            setUserPropertiesOnce: function (properties) {
+                _command.call(this, {
+                    commandName: 'set',
+                    arguments: [
+                        properties
+                    ]
+                });
+            },
+
             /**
              * expose cmd interface to execute ga command
              * @method command

@@ -147,6 +147,20 @@ Foo = createI13nNode(Foo, {
 <Foo i13nModel={{tracker: 'myTracker', category: 'foo'}} />
 ```
 
+
+## Tracker Settings
+
+You can also use the following methods to set properties of GA like [User Id](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id) or [dimension](https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets).
+
+```js
+var userId = 'aa4ebd41203df5b8639e9fe48d4c6c7de7c4b053';
+var dimension1 = 'administrator';
+ReactI13n.getInstance().execute('setUsername', { userId: userId });
+ReactI13n.getInstance().execute('setSuperProperties', { dimension1: dimension1 });
+ReactI13n.getInstance().execute('setUserProperties', { dimension1: dimension1 });
+ReactI13n.getInstance().execute('setUserPropertiesOnce', { dimension1: dimension1 });
+```
+
 ## ga command queue
 * [ga command queue](https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference)
 
